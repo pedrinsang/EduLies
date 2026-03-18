@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contador de Mentiras do Edu</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="card">
+    <h1>Contador de Mentiras do Edu</h1>
+    <p class="subtitle">Cada mentira adiciona <strong>+1</strong>.</p>
+
+    <div class="counter" aria-live="polite" aria-atomic="true">
+      <span id="count">0</span>
+    </div>
+
+    <div class="actions">
+      <button id="add-lie" type="button">Contar mentira (+1)</button>
+      <button id="reset" type="button" class="secondary">Zerar</button>
+    </div>
+  </main>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
