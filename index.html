@@ -13,10 +13,21 @@
 
   <div class="noise"></div>
 
+  <!-- Tab bar — só aparece no mobile -->
+  <nav class="tab-bar" aria-label="Navegação">
+    <button class="tab-btn active" data-tab="counter" type="button">
+      <span class="tab-icon"></span> Contador
+    </button>
+    <button class="tab-btn" data-tab="list" type="button">
+      <span class="tab-icon"></span> Lista
+      <span id="tab-badge" class="tab-badge hidden">0</span>
+    </button>
+  </nav>
+
   <main class="layout">
 
     <!-- Coluna esquerda: contador + ações -->
-    <section class="panel panel-left">
+    <section class="panel panel-left active-panel" data-panel="counter">
       <div class="brand">
         <span class="brand-tag">v2.0 — sistema oficial</span>
         <h1>Contador de<br><em>Mentiras</em><br>do Edu</h1>
@@ -57,7 +68,7 @@
     </section>
 
     <!-- Coluna direita: lista -->
-    <section class="panel panel-right">
+    <section class="panel panel-right hidden-panel" data-panel="list">
       <div class="list-header">
         <h2>Registro de Mentiras</h2>
         <span id="list-count" class="badge">0 registros</span>

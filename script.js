@@ -87,6 +87,9 @@ function renderAll() {
     const li = buildLieItem(lie, realNumber);
     lieList.appendChild(li);
   });
+
+  // Atualizar badge da tab
+  if (typeof updateTabBadge === 'function') updateTabBadge();
 }
 
 function buildLieItem(lie, number) {
@@ -235,10 +238,50 @@ lieDescEl.addEventListener("keydown", (e) => {
   if (e.key === "Enter") { e.preventDefault(); addLie(); }
 });
 
+// ── Tab bar (mobile) ──────────────────────────────────────────────────────────
+const tabBtns  = document.querySelectorAll(".tab-btn");
+const panels   = document.querySelectorAll(".panel[data-panel]");
+const tabBadge = document.getElementById("tab-badge");
+
+function isMobile() {
+  return window.matchMedia("(max-width: 780px)").matches;
+}
+
+function initPanels() {
+  if (!isMobile()) {
+    panels.forEach(p => p.classList.remove("active-panel", "hidden-panel"));
+    return;
+  }
+  const activeTab = document.querySelector(".tab-btn.active")?.dataset.tab || "counter";
+  panels.forEach(p => {
+    const isActive = p.dataset.panel === activeTab;
+    p.classList.toggle("active-panel", isActive);
+    p.classList.toggle("hidden-panel", !isActive);
+  });
+}
+
+function updateTabBadge() {
+  if (!tabBadge) return;
+  const n = lies.length;
+  tabBadge.textContent = n;
+  tabBadge.classList.toggle("hidden", n === 0);
+}
+
+tabBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
+    tabBtns.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    initPanels();
+  });
+});
+
+window.addEventListener("resize", initPanels);
+
 // ── Bindings ─────────────────────────────────────────────────────────────────
 addBtn.addEventListener("click", addLie);
 resetBtn.addEventListener("click", resetAll);
 
 // ── Init ─────────────────────────────────────────────────────────────────────
 setButtons(false);
+initPanels();
 void loadCounter();

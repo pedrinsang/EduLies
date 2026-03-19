@@ -60,11 +60,106 @@ body {
 .layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  min-height: 100dvh;
+  height: 100dvh;
 }
 
+/* ───────────────────────────────────────────────
+   TAB BAR (mobile only)
+─────────────────────────────────────────────── */
+.tab-bar {
+  display: none;
+}
+
+/* ───────────────────────────────────────────────
+   MOBILE
+─────────────────────────────────────────────── */
 @media (max-width: 780px) {
-  .layout { grid-template-columns: 1fr; }
+  body {
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  /* Tab bar */
+  .tab-bar {
+    display: flex;
+    flex-shrink: 0;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    z-index: 20;
+  }
+
+  .tab-btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: var(--text-muted);
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-weight: 700;
+    padding: 14px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    cursor: pointer;
+    transition: color 150ms, border-color 150ms;
+    position: relative;
+    border-radius: 0;
+  }
+
+  .tab-btn.active {
+    color: var(--red);
+    border-bottom-color: var(--red);
+  }
+
+  .tab-badge {
+    background: var(--red);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 700;
+    border-radius: 100px;
+    padding: 1px 6px;
+    min-width: 18px;
+    text-align: center;
+  }
+
+  .tab-badge.hidden { display: none; }
+
+  /* Layout ocupa o resto do espaço */
+  .layout {
+    grid-template-columns: 1fr;
+    flex: 1;
+    min-height: 0;
+    display: block;
+  }
+
+  /* Por padrão no mobile: painel da lista escondido */
+  .panel-right {
+    display: none;
+  }
+
+  /* Painel ativo via JS */
+  .panel[data-panel].active-panel {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .panel-left.active-panel {
+    overflow-y: auto;
+  }
+
+  /* Painel inativo via JS */
+  .panel[data-panel].hidden-panel {
+    display: none;
+  }
+
+  .panel-left {
+    border-right: none;
+  }
 }
 
 /* ───────────────────────────────────────────────
@@ -83,7 +178,8 @@ body {
     radial-gradient(ellipse 60% 50% at 10% 110%, rgba(232,65,42,0.12) 0%, transparent 70%),
     var(--surface);
   position: relative;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .panel-left::before {
@@ -102,11 +198,12 @@ body {
 
 .panel-right {
   background: var(--bg);
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: 0;
   padding: 0;
+  height: 100%;
+  overflow: hidden;
 }
 
 /* ───────────────────────────────────────────────
