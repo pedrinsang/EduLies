@@ -4,22 +4,77 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contador de Mentiras do Edu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main class="card">
-    <h1>Contador de Mentiras do Edu</h1>
-    <p class="subtitle">Cada mentira adiciona <strong>+1</strong>.</p>
 
-    <div class="counter" aria-live="polite" aria-atomic="true">
-      <span id="count">0</span>
-    </div>
+  <div class="noise"></div>
 
-    <div class="actions">
-      <button id="add-lie" type="button">Contar mentira (+1)</button>
-      <button id="reset" type="button" class="secondary">Zerar</button>
-    </div>
+  <main class="layout">
+
+    <!-- Coluna esquerda: contador + ações -->
+    <section class="panel panel-left">
+      <div class="brand">
+        <span class="brand-tag">v2.0 — sistema oficial</span>
+        <h1>Contador de<br><em>Mentiras</em><br>do Edu</h1>
+      </div>
+
+      <div class="counter-wrap">
+        <div class="counter-ring">
+          <div class="counter-inner">
+            <span id="count">0</span>
+            <span class="counter-label">mentiras</span>
+          </div>
+        </div>
+        <div class="counter-glow"></div>
+      </div>
+
+      <div class="form-block">
+        <div class="input-wrap">
+          <input
+            id="lie-desc"
+            type="text"
+            placeholder="Descreva a mentira (opcional)…"
+            maxlength="120"
+            autocomplete="off"
+          />
+          <span class="char-count" id="char-count">0/120</span>
+        </div>
+        <div class="actions">
+          <button id="add-lie" type="button" class="btn-primary">
+            <span class="btn-icon">＋</span> Registrar mentira
+          </button>
+          <button id="reset" type="button" class="btn-ghost">
+            Zerar tudo
+          </button>
+        </div>
+      </div>
+
+      <p class="footer-note">Cada mentira adiciona <strong>+1</strong> ao contador eterno.</p>
+    </section>
+
+    <!-- Coluna direita: lista -->
+    <section class="panel panel-right">
+      <div class="list-header">
+        <h2>Registro de Mentiras</h2>
+        <span id="list-count" class="badge">0 registros</span>
+      </div>
+
+      <ul id="lie-list" class="lie-list">
+        <li class="empty-state" id="empty-state">
+          <span class="empty-icon">🤥</span>
+          <p>Nenhuma mentira registrada ainda.<br>Seja o primeiro a denunciar.</p>
+        </li>
+      </ul>
+    </section>
+
   </main>
+
+  <!-- Toast de confirmação -->
+  <div id="toast" class="toast" aria-live="assertive"></div>
 
   <script type="module" src="script.js"></script>
 </body>
